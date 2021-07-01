@@ -1,3 +1,40 @@
-dd if=/dev/zero of=blank.img bs=4M count=4
+Steps:
+1. Create a blank image using dd
+dd if=/dev/zero of=blank.img bs=4M count=50
 
-^ creates a blank disc image file
+2. Mount that blank img on a loop device
+sudo losetup loop0 blank.img
+
+3. Partition the loop0 mounted img
+sudo fdisk /dev/loop0
+o <- clear partitions
+n <- new
+p <- primary
+1 <- 1st drive partition
+ENTER <- first sector
+ENTER <- second sector
+t <- type
+c <- W95 FAT32 (LBA)
+w <- write and exit
+
+4. Format the partition on loop0
+sudo mkfs.vfat /dev/loop0p1
+
+5. Mount the partition
+mkdir mnt
+sudo mount /dev/loop0p1 mnt
+
+6. Copy the kernel and stuff
+sudo cp <path of stuff> mnt/
+
+7. Unmount partition
+sudo umount mnt
+
+8. Detach loop device
+sudo losetup -d /dev/loop0
+
+9. Rename blank to something useful
+mv blank.img custom.img
+
+
+custom.img should be written to an sdcard
