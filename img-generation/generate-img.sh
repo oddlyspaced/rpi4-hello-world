@@ -3,6 +3,7 @@
 bs=4
 img_file=temp.img
 loop_device=0
+mount_point=rootmnt
 
 # rounds number to nearest greater block size
 # accepts float value of size
@@ -49,6 +50,16 @@ partition_img () {
 	sudo partprobe $loop_device
 }
 
+# format partition and mount
+load_partition () {
+	# get latest loop partition name
+	loop_name=$(ls $loop_device?[0-9])
+	sudo mkfs.vfat $loop_name
+	mkdir $mount_point
+	sudo mount $loop_name $mount_point
+}
+
 create_blank 2.3
 mount_img
 partition_img
+load_partition
