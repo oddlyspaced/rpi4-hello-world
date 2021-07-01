@@ -6,6 +6,13 @@ loop_device=0
 mount_point=rootmnt
 source_files=/home/hardik/Raspberry-Pi/mount-bkp/*
 
+# calculates size of source files
+# returns calculated size in MB
+calculate_source_size () {
+	local size=$(du -shc $source_files --block-size=1M | grep "total" | cut -f 1)
+	return $size
+}
+
 # rounds number to nearest greater block size
 # accepts float value of size
 # returns rounded value
@@ -24,7 +31,11 @@ round_to_bs () {
 create_blank () {
 	round_to_bs $1
 	bs_count=$(( $? / $bs ))
-	dd if=/dev/zero of=$img_file bs=4M count=50
+	if [ $bs_count -eq 1 ]
+	then
+		bs_count=2
+	fi
+	dd if=/dev/zero of=$img_file bs=""$bs"M" count=$bs_count
 	echo "Blank image of size $(($bs * $bs_count))M created"
 }
 
@@ -63,7 +74,8 @@ load_partition () {
 	echo "Loop device mount successful"
 }
 
-create_blank 2.3
+calculate_source_size
+create_blank $?
 mount_img
 partition_img
 load_partition
