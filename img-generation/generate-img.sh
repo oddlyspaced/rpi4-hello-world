@@ -52,9 +52,9 @@ create_blank () {
 	round_to_bs $1
 	bs_count=$(( $? / $bs ))
 	# img file must be atleast 8 mb in size
-	if [ $bs_count -eq 1 ]
+	if [ $(( $bs_count * $bs )) -lt 8 ]
 	then
-		bs_count=2
+		bs_count=$(( 8 / $bs ))
 	fi
 	dd if=/dev/zero of=$img_file bs=""$bs"M" count=$bs_count
 	echo "Blank image of size $(($bs * $bs_count))M created"
