@@ -56,7 +56,10 @@ create_blank () {
 	then
 		bs_count=$(( 8 / $bs ))
 	fi
-	dd if=/dev/zero of=$img_file bs=""$bs"M" count=$bs_count
+	# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	# !! TODO : Check why using bs_count in count often does not work !!
+	# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	dd if=/dev/zero of=$img_file bs=""$bs"M" count=50
 	echo "Blank image of size $(($bs * $bs_count))M created"
 }
 
