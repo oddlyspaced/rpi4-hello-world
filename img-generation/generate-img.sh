@@ -1,6 +1,7 @@
 #!/bin/bash
 
 bs=4
+img_file=temp.img
 
 # rounds number to nearest greater block size
 # accepts float value of size
@@ -20,16 +21,16 @@ round_to_bs () {
 create_blank () {
 	round_to_bs $1
 	bs_count=$(( $? / $bs ))
-	dd if=/dev/zero of=temp.img bs=4M count=$bs_count
+	dd if=/dev/zero of=$img_file bs=4M count=$bs_count
 	echo "Blank image of size $(($bs * $bs_count))M created"
 }
 
 # mounts the blank img file
 mount_img () {
 	loop_device=$(sudo losetup -f)
-	sudo losetup $loop_device temp.img
+	sudo losetup $loop_device $img_file
 	echo "Mounted blank image on $loop_device"
 }
 
-# create_blank 2.3
+create_blank 2.3
 mount_img
