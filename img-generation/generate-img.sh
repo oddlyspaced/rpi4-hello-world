@@ -24,4 +24,12 @@ create_blank () {
 	echo "Blank image of size $(($bs * $bs_count))M created"
 }
 
-create_blank 2.3
+# mounts the blank img file
+mount_img () {
+	loop_device=$(sudo losetup -f)
+	sudo losetup $loop_device temp.img
+	echo "Mounted blank image on $loop_device"
+}
+
+# create_blank 2.3
+mount_img
