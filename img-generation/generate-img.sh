@@ -4,6 +4,7 @@ bs=4
 img_file=temp.img
 loop_device=0
 mount_point=rootmnt
+source_files=/home/hardik/Raspberry-Pi/mount-bkp/*
 
 # rounds number to nearest greater block size
 # accepts float value of size
@@ -66,3 +67,6 @@ create_blank 2.3
 mount_img
 partition_img
 load_partition
+echo "Copying over boot files..."
+sudo cp -r $source_files $mount_point
+echo "Copying boot files done"
