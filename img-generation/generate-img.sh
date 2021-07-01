@@ -2,6 +2,7 @@
 
 bs=4
 img_file=temp.img
+loop_device=0
 
 # rounds number to nearest greater block size
 # accepts float value of size
@@ -32,5 +33,22 @@ mount_img () {
 	echo "Mounted blank image on $loop_device"
 }
 
+# partitions the mounted img
+partition_img () {
+	(
+		echo o # clear partitions
+		echo n # new partition
+		echo p # primary
+		echo   # partition number
+		echo   # first sector
+		echo   # last sector
+		echo t # type
+		echo c # W95 FAT32 (LBA)
+		echo w # write and quit
+	) | sudo fdisk $loop_device
+	sudo partprobe $loop_device
+}
+
 create_blank 2.3
 mount_img
+partition_img
