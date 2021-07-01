@@ -5,6 +5,7 @@ img_file=temp.img
 loop_device=0
 mount_point=rootmnt
 source_files=/home/hardik/Raspberry-Pi/mount-bkp/*
+final_img=generated.img
 
 # calculates size of source files
 # returns calculated size in MB
@@ -87,3 +88,5 @@ rm -rf $mount_point
 echo "Unmounted loop device"
 sudo losetup -d $loop_device
 echo "Detached loop device"
+mv $img_file $final_img
+echo "Generated $final_img successfully"
