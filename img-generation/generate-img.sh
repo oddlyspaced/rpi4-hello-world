@@ -1,11 +1,30 @@
 #!/bin/bash
 
-bs=4
-img_file=temp.img
-loop_device=0
-mount_point=rootmnt
+# !!!!!!!!!!!!!!!!!!!!!!!
+# !! User configurable !!
+# !!!!!!!!!!!!!!!!!!!!!!!
+
+# source files for boot partition (these files will be copied over to the image)
 source_files=/home/hardik/Raspberry-Pi/mount-bkp/*
+# final img file name
 final_img=generated.img
+
+# !!!!!!!!!!!!!!!!!!!!!!
+# !! Script variables !!
+# !!!!!!!!!!!!!!!!!!!!!!
+
+# temporary mount folder for script
+mount_point=rootmnt
+# block size for blank size in mb
+bs=4
+# temporary img file used while generation
+img_file=temp.img
+# loop device name (populated at runtime)
+loop_device=0
+
+# !!!!!!!!!!!!!!!
+# !! Functions !!
+# !!!!!!!!!!!!!!!
 
 # calculates size of source files
 # returns calculated size in MB
@@ -32,6 +51,7 @@ round_to_bs () {
 create_blank () {
 	round_to_bs $1
 	bs_count=$(( $? / $bs ))
+	# img file must be atleast 8 mb in size
 	if [ $bs_count -eq 1 ]
 	then
 		bs_count=2
@@ -67,13 +87,17 @@ partition_img () {
 # format partition and mount
 load_partition () {
 	# get latest loop partition name
-	loop_name=$(ls $loop_device?[0-9])
+	local loop_name=$(ls $loop_device?[0-9])
 	sudo mkfs.vfat $loop_name
 	echo "Formatted loop device"
 	mkdir $mount_point
 	sudo mount $loop_name $mount_point
 	echo "Loop device mount successful"
 }
+
+# !!!!!!!!!!!!!!!
+# !! Execution !!
+# !!!!!!!!!!!!!!!
 
 calculate_source_size
 create_blank $?
