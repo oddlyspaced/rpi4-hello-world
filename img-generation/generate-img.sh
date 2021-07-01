@@ -48,6 +48,7 @@ partition_img () {
 		echo w # write and quit
 	) | sudo fdisk $loop_device
 	sudo partprobe $loop_device
+	echo "Partitioned loop device"
 }
 
 # format partition and mount
@@ -55,8 +56,10 @@ load_partition () {
 	# get latest loop partition name
 	loop_name=$(ls $loop_device?[0-9])
 	sudo mkfs.vfat $loop_name
+	echo "Formatted loop device"
 	mkdir $mount_point
 	sudo mount $loop_name $mount_point
+	echo "Loop device mount successful"
 }
 
 create_blank 2.3
