@@ -24,7 +24,7 @@ round_to_bs () {
 create_blank () {
 	round_to_bs $1
 	bs_count=$(( $? / $bs ))
-	dd if=/dev/zero of=$img_file bs="$bs"M count=$bs_count
+	dd if=/dev/zero of=$img_file bs=4M count=50
 	echo "Blank image of size $(($bs * $bs_count))M created"
 }
 
