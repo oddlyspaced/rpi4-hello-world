@@ -83,6 +83,7 @@ echo "Copying over boot files..."
 sudo cp -r $source_files $mount_point
 echo "Copying boot files done"
 sudo umount $mount_point
+rm -rf $mount_point
 echo "Unmounted loop device"
 sudo losetup -d $loop_device
 echo "Detached loop device"
