@@ -15,5 +15,13 @@ round_to_bs () {
 	return $rnd
 }
 
-round_to_bs 2.3
-echo $?
+# creates a blank img file
+# takes size as parameter
+create_blank () {
+	round_to_bs $1
+	bs_count=$(( $? / $bs ))
+	dd if=/dev/zero of=temp.img bs=4M count=$bs_count
+	echo "Blank image of size $(($bs * $bs_count))M created"
+}
+
+create_blank 2.3
