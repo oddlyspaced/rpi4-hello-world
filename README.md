@@ -1,5 +1,5 @@
-# Raspberry Pi 4(b) - Hello World
-Bare Metal Hello World Operating System for Raspberry Pi 4(b)
+# Raspberry Pi 4/4b - Hello World
+Bare Metal Hello World Operating System for Raspberry Pi 4/4b.
 
 ## Build Dependencies
 Compiling the kernel required the ARM 64 GNU C Cross Compiler.
