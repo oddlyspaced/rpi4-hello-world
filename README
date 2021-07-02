@@ -1,1 +1,68 @@
-TODO
+# Raspberry Pi 4(b) - Hello World
+Bare Metal Hello World Operating System for Raspberry Pi 4(b)
+
+## Build Dependencies
+Compiling the kernel required the ARM 64 GNU C Cross Compiler.
+On Arch / Arch based distros it can be installed by running :
+
+    sudo pacman -S aarch64-linux-gnu-gcc
+
+GNU Make is used to handle the kernel compilation. It is normally present on major distributions but can be easily installed by referring to the distribution specific install instructions.
+On Arch / Arch based distros it can be installed individually by running :
+
+    sudo pacman -S make
+
+or with the base-devel group by running :
+
+    sudo pacman -S base-devel
+
+## Downloading the Source
+Clone this repository by running :
+
+    git clone https://github.com/oddlyspaced/rpi4-hello-world.git
+
+## Building the Kernel Image
+The `Makefile` contains 2 targets.
+A standard `all` target which compiles the kernel image.
+A `clean` target which cleans the build directory and any present images.
+
+In order to compile the kernel image just `cd` to the source folder (`rpi4-hello-world` if you executed the above `git` command) and execute :
+
+    make
+
+This should generate an img file called `kernel8.img` . This is our compiled kernel image.
+
+## Testing the Kernel Image
+The custom kernel image can be tested by following two different methods.
+### 1. Replacing kernel image in Raspbian
+1. Flash the latest [Raspberry Pi OS Image](https://www.raspberrypi.org/software/operating-systems/) on your SD Card
+> [Lite variant is recommended since our kernel is super bare bones and
+> is not going to do much apart from just printing Hello World]
+2. Mount the boot partition
+	a. Find out the 
+
+### 2. Generating a custom flashable image
+In this process we extract the required basic firmware files from the Raspbian OS images and use those to generate a barebones flashable image for our tiny kernel image.
+1. Download the latest [Raspberry Pi OS Image](https://www.raspberrypi.org/software/operating-systems/) 
+> [Lite variant is recommended since our kernel is super bare bones and
+> is not going to do much apart from just printing Hello World]
+2. Mount the boot partition of Raspberry Pi OS Image
+
+    a. Find the start offset of boot partition by running fdisk on the downloaded image.
+		example :
+		
+        fdisk -l 2021-05-07-raspios-buster-armhf-lite.img
+		 
+	This should print the partition table for the img
+	Sample output :
+
+		Disk 2021-05-07-raspios-buster-armhf-lite.img: 1.75 GiB, 1874853888 bytes, 3661824 sectors
+    	Units: sectors of 1 * 512 = 512 bytes
+    	Sector size (logical/physical): 512 bytes / 512 bytes
+    	I/O size (minimum/optimal): 512 bytes / 512 bytes
+    	Disklabel type: dos
+    	Disk identifier: 0x9730496b
+    	
+    	Device                                    Boot  Start     End Sectors  Size Id Type
+    	2021-05-07-raspios-buster-armhf-lite.img1        8192  532479  524288  256M  c W95 FAT32 (LBA)
+    	2021-05-07-raspios-buster-armhf-lite.img2      532480 3661823 3129344  1.5G 83 Linux
