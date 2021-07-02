@@ -206,3 +206,27 @@ must be there at the bottom of your screen.
 Here's a sample screenshot of the Pi booting:
 
 ![Hello World!](https://raw.githubusercontent.com/oddlyspaced/rpi4-hello-world/main/sample-output.png)
+
+
+## Debugging
+
+### Serial Window prints garbled output
+
+This happens when the baud rate gets messed up via the initial serial communication. An easy way to fix this is to turn off the Pi, remove the TTL adapter from your machine, and re connect it to the machine.
+
+If that does not fix it still and you know what you are doing, then you can edit the baud rate in the mini_uart.c file linked below :
+https://github.com/oddlyspaced/rpi4-hello-world/blob/main/src/mini_uart.c#L22
+
+
+### Serial window does not show anything
+
+This can happen for various, reasons.
+
+1. Check pin connections    
+    Make sure to check if the cables are attached properly.
+
+2. Check if SD Card is flashed properly     
+    Often times the boot process can lead to an incorrectly formatted card. Reformat it and test again.
+
+3. Check if Raspberry Pi is loading your OS     
+    On the Pi, there is a red and green light present. If everything including your SD Card and kernel are fine, then the Green LED should blink repeatedly which indicates that the OS is being loaded by the Pi. If this happens and nothing is printed, check the Kernel code for mini_uart. If this however does not happen then check the SD Card again.
