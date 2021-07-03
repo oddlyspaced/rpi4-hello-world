@@ -42,6 +42,7 @@ The custom kernel image can be tested by following two different methods.
 > is not going to do much apart from just printing Hello World]'
 
 2. Mount the boot partition
+
 	a. Find out the device and partition name by running
         
         sudo fdisk -l
@@ -64,7 +65,7 @@ The custom kernel image can be tested by following two different methods.
 
         sudo mount <device> root-mount
 
-    Here `<device>` is the device partition name and `root-mount` is the folder where we will mount the partition. (/dev/sda1 according to the above sample)
+    Here `<device>` is the device partition name (/dev/sda1 according to the above sample) and `root-mount` is the folder where we will mount the partition.
 
 3. Copy over the config and kernel image
 
@@ -214,19 +215,19 @@ Here's a sample screenshot of the Pi booting:
 
 This happens when the baud rate gets messed up via the initial serial communication. An easy way to fix this is to turn off the Pi, remove the TTL adapter from your machine, and re connect it to the machine.
 
-If that does not fix it still and you know what you are doing, then you can edit the baud rate in the mini_uart.c file linked below :
+If that does not fix it still and you know what you are doing, then you can edit the baud rate in the `mini_uart.c` file linked below :
 https://github.com/oddlyspaced/rpi4-hello-world/blob/main/src/mini_uart.c#L22
 
 
 ### Serial window does not show anything
 
-This can happen for various, reasons.
+This can happen for various reasons.
 
 1. Check pin connections    
     Make sure to check if the cables are attached properly.
 
 2. Check if SD Card is flashed properly     
-    Often times the boot process can lead to an incorrectly formatted card. Reformat it and test again.
+    Often times the process can lead to an incorrectly formatted card. Reformat it and test again.
 
 3. Check if Raspberry Pi is loading your OS     
     On the Pi, there is a red and green light present. If everything including your SD Card and kernel are fine, then the Green LED should blink repeatedly which indicates that the OS is being loaded by the Pi. If this happens and nothing is printed, check the Kernel code for mini_uart. If this however does not happen then check the SD Card again.
