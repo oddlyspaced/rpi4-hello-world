@@ -231,3 +231,7 @@ This can happen for various reasons.
 
 3. Check if Raspberry Pi is loading your OS     
     On the Pi, there is a red and green light present. If everything including your SD Card and kernel are fine, then the Green LED should blink repeatedly which indicates that the OS is being loaded by the Pi. If this happens and nothing is printed, check the Kernel code for mini_uart. If this however does not happen then check the SD Card again.
+
+## References
+[Learning OS Development by s-matyukevich](https://s-matyukevich.github.io/raspberry-pi-os)
+[Raspberry PI Bare Metal Tutorial - Playlist by Low Level Devel](https://www.youtube.com/watch?v=pd9AVmcRc6U&list=PLVxiWMqQvhg9FCteL7I0aohj1_YiUx1x8)
