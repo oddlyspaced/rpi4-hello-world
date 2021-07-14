@@ -234,4 +234,5 @@ This can happen for various reasons.
 
 ## References
 [Learning OS Development by s-matyukevich](https://s-matyukevich.github.io/raspberry-pi-os)
+
 [Raspberry PI Bare Metal Tutorial - Playlist by Low Level Devel](https://www.youtube.com/watch?v=pd9AVmcRc6U&list=PLVxiWMqQvhg9FCteL7I0aohj1_YiUx1x8)
